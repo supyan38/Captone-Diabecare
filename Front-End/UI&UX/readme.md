@@ -4,7 +4,7 @@
 **Muhammad Supyan**
 
 ## 🧑‍💻 Tim
-CAPSTONE
+CAPSTONE UI&UX
 
 ## 📅 Tanggal
 25-05-2025
