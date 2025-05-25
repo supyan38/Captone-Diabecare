@@ -1,7 +1,7 @@
 # 🧩 Diabecare – UI/UX Designer Report
 
 ## 👤 Nama
-[Muhammad Supyan]
+**Muhammad Supyan**
 
 ## 🧑‍💻 Tim
 CAPSTONE
