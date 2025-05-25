@@ -39,8 +39,11 @@ CAPSTONE
    hijau F5FFE6
 
 🌿 Hijau muda	Melambangkan kesehatan, pertumbuhan, dan kesegaran.
+
 🌤️ Nada terang (light)	Memberi kesan ringan, ramah, dan tidak mengintimidasi.
+
 🧘 Latar belakang halus	Cocok sebagai background untuk aplikasi kesehatan atau wellness karena tidak mencolok dan menenangkan mata.
+
 👩‍⚕️ Aplikasi medis	Memberi nuansa steril, bersih, dan positif (seperti ruangan klinik modern).
 
 ### Tipografi
