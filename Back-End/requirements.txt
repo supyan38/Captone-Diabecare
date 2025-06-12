@@ -6,6 +6,3 @@ joblib
 scikit-learn
 pandas
 itsdangerous
-
-python 3.13.3
-pip 25.1.1
