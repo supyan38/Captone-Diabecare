@@ -1,26 +1,27 @@
-# 👨‍⚕️ DiabeCare
+# Laporan Update Back End
 
-**DiabeCare** adalah aplikasi digital yang dirancang untuk mendeteksi risiko diabetes secara dini menggunakan model machine learning. Aplikasi ini tidak hanya memprediksi kemungkinan diabetes berdasarkan data kesehatan pengguna, tetapi juga memberikan edukasi dan rekomendasi kesehatan yang terpersonalisasi. Dengan pendekatan design thinking, DiabeCare hadir sebagai solusi preventif yang mudah diakses, mendukung monitoring kesehatan berkelanjutan, serta membantu pengguna dalam mengelola gaya hidup sehat untuk mencegah komplikasi diabetes.
+## Menambah Middleware
+- Menambahkan CORS Middleware agar backend dapat diakses dari frontend React (http://localhost:5173)
+- Menambahkan Session Middleware untuk menyimpan sesi login user agar dapat mengakses data secara persist selama sesi aktif
 
-## 👨‍👩‍👧‍👦 Team
+## Mengubah Database
+- Mengubah kolom kolom database agar sesuai dengan frontend yaitu kolom id, nama, usia, email dan password
+- Perubahan ini bertujuan agar sesuai dengan kebutuhan frontend React yang membutuhkan data nama, usia, dan email user
 
-| Role | ID           | Nama Lengkap                    | Institusi                                 |
-| ---- | ------------ | ------------------------------- | ----------------------------------------- |
-| ML   | MC014D5Y1605 | Ngakan Putu Bagus Ananta Wijaya | Universitas Udayana                       |
-| ML   | MC114D5X1928 | Roulina Sianipar                | Institut Teknologi Del                    |
-| ML   | MC114D5X1940 | Laura Vegawani Pasaribu         | Institut Teknologi Del                    |
-| FEBE | FC446D5Y1811 | Muhammad Supyan                 | Universitas Kebangsaan Republik Indonesia |
-| FEBE | FC123D5Y1545 | Fatih Muflih                    | Politeknik Elektronika Negeri Surabaya    |
-| FEBE | FC446D5Y0980 | Udan                            | Universitas Kebangsaan Republik Indonesia |
+## Memperbarui post login
+- Menyesuaikan query untuk mencocokkan email dan password sesuai struktur database baru
+- Menyimpan informasi user (id, nama, usia, email) ke dalam session agar dapat digunakan di halaman dashboard dan profil
 
+## Memperbarui post register
+- Mengubah form input menjadi menerima nama, usia, email, dan password
+- Menambahkan validasi untuk menangani sqlite3.IntegrityError jika email sudah terdaftar
 
-## 🗂️ Project Structure
+## Memperbarui post predict
+- Normalisasi nilai input: age, bmi, glucose_level
+- Memperbarui model yang lebih akurat dari model sebelumnya dan juga menambah inputan model yuitu age, bmi, glucose_level, physical_activity, family_history, smoker, gender
+- Mapping data kategorikal seperti gender, family_history, smoker, physical_activity menjadi numerik
+- Model yang digunakan adalah file best_model_diabetes_risk.sav, memprediksi langsung probabilitas risiko diabetes
 
-- `frontend/`: Web user interface (HTML/CSS/JS or React)
-- `backend/`: API server dan Integrasi
-- `ml-model/`: Machine learning notebooks dan model files
-- `docs/`: Dokumentasi pendukung
-
-
-
-
+## Membuat rute profile untuk frontend edit profile
+- Menambahkan endpoint untuk mengambil data profil user (GET /profile)
+- Menambahkan endpoint untuk update data nama dan usia user (POST /profile/update)
