@@ -4,11 +4,28 @@ import Illustration3 from '../assets/doctors-rafik.png';
 const Register = () => {
     const navigate = useNavigate();
 
-    const handleRegister = (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault();
-
-        navigate('/login');
-    };
+    
+        const formData = new FormData();
+        formData.append("nama", e.target[0].value);       
+        formData.append("usia", e.target[1].value);       
+        formData.append("email", e.target[2].value);  
+        formData.append("password", e.target[3].value);   
+    
+        const response = await fetch("http://localhost:8000/register", {
+            method: "POST",
+            body: formData,
+            credentials: "include"
+        });
+    
+        if (response.ok) {
+            navigate('/login'); 
+        } else {
+            const html = await response.text();
+            document.documentElement.innerHTML = html; 
+        }        
+    };    
 
     return (
         <div className="min-h-screen bg-green-50 flex flex-col md:flex-row items-center justify-center px-6 py-10">

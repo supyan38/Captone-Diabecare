@@ -5,13 +5,37 @@ import { Link, useNavigate } from 'react-router-dom';
 import Illustration7 from '../assets/medicine-cuate.png';
 
 const CekGulaDarah = () => {
-    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
+    const [formData, setFormData] = useState({
+        bmi: '',
+        age: '',
+        glucose_level: '',
+        family_history: '',
+        smoker: '',
+        physical_activity: '',
+        gender: '', 
+    });
+    const [result, setResult] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        navigate('/dashboard');
+        try {
+            const res = await fetch('http://localhost:8000/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            const data = await res.json();
+            setResult(data);
+        } catch (error) {
+            console.error('Gagal prediksi:', error);
+        }
     };
 
     return (
@@ -55,19 +79,19 @@ const CekGulaDarah = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <label className="flex flex-col">
                             <span className="mb-1">BMI</span>
-                            <input type="number" className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 23.5" />
+                            <input type="number" name='bmi' value={formData.bmi} className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 23.5" onChange={handleChange} />
                         </label>
                         <label className="flex flex-col">
                             <span className="mb-1">USIA</span>
-                            <input type="number" className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 22" />
+                            <input type="number" name='age' value={formData.age} className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 22" onChange={handleChange} />
                         </label>
                         <label className="flex flex-col">
                             <span className="mb-1">TINGKAT GLUKOSA</span>
-                            <input type="number" className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 110" />
+                            <input type="number" name='glucose_level' value={formData.glucose_level} className="rounded-xl px-4 py-2 bg-white focus:outline-none" placeholder="Contoh: 110" onChange={handleChange} />
                         </label>
                         <label className="flex flex-col">
                             <span className="mb-1">RIWAYAT KELUARGA</span>
-                            <select className="rounded-xl px-4 py-2 bg-white">
+                            <select className="rounded-xl px-4 py-2 bg-white" name="family_history" value={formData.family_history} onChange={handleChange}>
                                 <option value="">Pilih</option>
                                 <option value="ya">Ya</option>
                                 <option value="tidak">Tidak</option>
@@ -75,7 +99,7 @@ const CekGulaDarah = () => {
                         </label>
                         <label className="flex flex-col">
                             <span className="mb-1">PEROKOK</span>
-                            <select className="rounded-xl px-4 py-2 bg-white">
+                            <select className="rounded-xl px-4 py-2 bg-white" name='smoker' value={formData.smoker} onChange={handleChange}>
                                 <option value="">Pilih</option>
                                 <option value="ya">Ya</option>
                                 <option value="tidak">Tidak</option>
@@ -83,11 +107,20 @@ const CekGulaDarah = () => {
                         </label>
                         <label className="flex flex-col">
                             <span className="mb-1">TINGKAT AKTIVITAS FISIK</span>
-                            <select className="rounded-xl px-4 py-2 bg-white">
+                            <select className="rounded-xl px-4 py-2 bg-white" name='physical_activity' value={formData.physical_activity} onChange={handleChange}>
                                 <option value="">Pilih</option>
                                 <option value="rendah">Rendah</option>
                                 <option value="sedang">Sedang</option>
                                 <option value="tinggi">Tinggi</option>
+                            </select>
+                        </label>
+
+                        <label className="flex flex-col">
+                            <span className="mb-1">Jenis Kelamin</span>
+                            <select className="rounded-xl px-4 py-2 bg-white" name='gender' value={formData.gender} onChange={handleChange}>
+                                <option value="">Pilih</option>
+                                <option value="laki-laki">Laki-laki</option>
+                                <option value="perempuan">Perempuan</option>
                             </select>
                         </label>
                     </div>
@@ -100,6 +133,14 @@ const CekGulaDarah = () => {
                             SUBMIT
                         </button>
                     </div>
+
+                    {result && (
+                        <div className="mt-4 p-4 bg-white rounded-xl text-green-900">
+                            <p><strong>Hasil:</strong> {result.risk_level}</p>
+                            <p><strong>Probabilitas:</strong> {result.probability}</p>
+                        </div>
+                    )}
+                    
                 </form>
             </div>
         </div>

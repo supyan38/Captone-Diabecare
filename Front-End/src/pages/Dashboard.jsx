@@ -51,8 +51,22 @@ const Dashboard = () => {
     };
 
     const fetchUserData = async () => {
-        setUser({ name: '', age: '', email: '' });
+        try {
+            const res = await fetch('http://localhost:8000/profile', {
+                credentials: 'include'  
+            });
+            const data = await res.json();
+            if (res.ok) {
+                setUser({ name: data.nama, age: data.usia, email: data.email });
+            } else {
+                navigate('/login');
+            }
+        } catch (err) {
+            console.error(err);
+            navigate('/login');
+        }   
     };
+
 
     const fetchChartData = async () => {
         setChartData([]); 
