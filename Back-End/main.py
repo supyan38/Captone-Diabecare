@@ -57,10 +57,6 @@ def is_authenticated(request: Request):
 def login_form(request: Request):
     return templates.TemplateResponse("login.html", {"request": request, "message": ""})
 
-class LoginRequest(BaseModel):
-    username: str
-    password: str
-
 @app.post("/login")
 async def login(request: Request, email: str = Form(...), password: str = Form(...)):
     conn = get_db()
